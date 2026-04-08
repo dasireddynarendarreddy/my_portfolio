@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send, MapPin, CheckCircle2, Loader2 } from 'lucide-react';
 import { personalInfo } from '@/data/portfolio';
 import SectionHeader from '@/components/ui/SectionHeader';
-
+import emailjs from '@emailjs/browser';
+import.meta.env
 type FormState = { name: string; email: string; subject: string; message: string };
 type Status = 'idle' | 'sending' | 'success';
 
@@ -11,6 +12,7 @@ export default function Contact() {
   const [form, setForm] = useState<FormState>({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState<Status>('idle');
   const [touched, setTouched] = useState<Partial<Record<keyof FormState, boolean>>>({});
+  const forms = useRef<HTMLFormElement | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -23,6 +25,34 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
+
+    
+const serviceId = import.meta.env.VITE_EMAIL_SERVICE_ID;
+const templateId = import.meta.env.VITE_EMAIL_TEMPLATE_ID;
+const publicKey = import.meta.env.VITE_EMAIL_PUBLIC_KEY;
+  
+ if(forms.current){
+    emailjs
+      .sendForm(
+       serviceId,     
+        templateId,    // replace
+        forms.current,
+        publicKey
+            )
+      .then(
+        (result) => {
+          console.log("SUCCESS!", result.text);
+          alert("Message sent successfully!");
+        },
+        (error) => {
+          console.log("FAILED...", error);
+          alert("Failed to send message");
+        }
+      );
+    }
+
+  
+
     await new Promise((r) => setTimeout(r, 1400));
     setStatus('success');
     setTimeout(() => {
@@ -134,7 +164,7 @@ export default function Contact() {
                   <p className="text-slate-400 text-sm">Thanks for reaching out. I'll get back to you within 24 hours.</p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form ref={forms} onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs text-slate-400 font-medium mb-1.5">Name *</label>
