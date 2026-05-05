@@ -2,11 +2,7 @@ import { lazy, Suspense } from 'react';
 import Navigation from '@/components/layout/Navigation';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
-<<<<<<< HEAD
-=======
 import Chatbot from '@/components/ui/Chatbot';
->>>>>>> develope3
-
 const About = lazy(() => import('@/components/sections/About'));
 const Experience = lazy(() => import('@/components/sections/Experience'));
 const Projects = lazy(() => import('@/components/sections/Projects'));
@@ -48,10 +44,8 @@ function App() {
         </Suspense>
       </main>
       <Footer />
-<<<<<<< HEAD
-=======
       <Chatbot />
->>>>>>> develope3
+
     </div>
   );
 }
