@@ -180,7 +180,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex items-center gap-4 mb-16"
+            className="flex items-center gap-2 mb-8"
           >
             <a
               href={personalInfo.github}
