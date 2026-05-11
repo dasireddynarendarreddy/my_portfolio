@@ -18,12 +18,14 @@ export default function Navigation() {
   const [activeSection, setActiveSection] = useState('');
   const progress = useScrollProgress();
 
+  // Handle scroll event
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle active section detection
   useEffect(() => {
     const sections = navLinks.map((l) => l.href.replace('#', ''));
     const observer = new IntersectionObserver(
@@ -41,10 +43,32 @@ export default function Navigation() {
     return () => observer.disconnect();
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [mobileOpen]);
+
+  // Handle navigation click
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  };
+
+  // Handle email link click
+  const handleEmailClick = () => {
+    setMobileOpen(false);
   };
 
   return (
@@ -72,7 +96,11 @@ export default function Navigation() {
           {/* Logo */}
           <motion.a
             href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileOpen(false);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             className="flex items-center gap-2 group"
             whileHover={{ scale: 1.02 }}
           >
@@ -120,7 +148,7 @@ export default function Navigation() {
             </a>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-2 rounded-lg bg-white/[0.05] border border-white/[0.08] text-slate-300 hover:text-white transition-colors"
+              className="md:hidden p-2 rounded-lg bg-white/[0.05] border border-white/[0.08] text-slate-300 hover:text-white transition-colors cursor-pointer touch-manipulation"
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -135,7 +163,7 @@ export default function Navigation() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25 }}
-              className="md:hidden border-t border-white/[0.06] bg-[#0f0f13]/95 backdrop-blur-xl overflow-hidden"
+              className="md:hidden fixed top-[70px] left-0 right-0 z-[100] border-t border-white/[0.06] bg-[#0f0f13]/95 backdrop-blur-xl overflow-y-auto max-h-[calc(100vh-70px)]"
             >
               <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-1">
                 {navLinks.map((link, i) => (
@@ -145,15 +173,17 @@ export default function Navigation() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
                     onClick={() => handleNavClick(link.href)}
-                    className="text-left px-4 py-3 text-slate-300 hover:text-white hover:bg-white/[0.04] rounded-lg transition-colors font-medium"
+                    className="w-full text-left px-4 py-3 text-slate-300 hover:text-white hover:bg-white/[0.04] rounded-lg transition-colors font-medium cursor-pointer touch-manipulation"
                   >
                     {link.label}
                   </motion.button>
                 ))}
                 <a
                   href={`mailto:${personalInfo.email}`}
-                  className="mt-2 btn-primary justify-center text-sm"
+                  onClick={handleEmailClick}
+                  className="mt-2 btn-primary justify-center text-sm cursor-pointer touch-manipulation"
                 >
+                  <Download className="w-4 h-4" />
                   Hire Me
                 </a>
               </div>
