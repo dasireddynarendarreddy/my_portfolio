@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send, MapPin, CheckCircle2, Loader2 } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, MapPin, CheckCircle2, Loader2, Twitter } from 'lucide-react';
 import { personalInfo } from '@/data/portfolio';
 import SectionHeader from '@/components/ui/SectionHeader';
 import emailjs from '@emailjs/browser';
@@ -74,6 +74,9 @@ const publicKey = import.meta.env.VITE_EMAIL_PUBLIC_KEY;
     { icon: Github, label: 'GitHub', value: 'dasireddynarendarreddy', href: personalInfo.github, color: 'text-slate-300' },
     { icon: Linkedin, label: 'LinkedIn', value: 'Connect with me', href: personalInfo.linkedin, color: 'text-cyan-400' },
     { icon: MapPin, label: 'Location', value: 'India · Open to Remote', href: null, color: 'text-emerald-400' },
+    {
+      icon:Twitter, label: 'Twitter', value: '@narendar_reddy', href: 'https://x.com/narendarda42874', color: 'text-sky-400'
+    }
   ];
 
   return (

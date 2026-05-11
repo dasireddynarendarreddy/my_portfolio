@@ -5,7 +5,7 @@ export const personalInfo = {
   email: 'narendarreddy2002@gmail.com',
   github: 'https://github.com/dasireddynarendarreddy',
   linkedin: 'https://www.linkedin.com/in/narendar915/',
-
+  twitter: 'https://x.com/narendarda42874',
   portfolio: 'https://dasireddynarendarreddy.vercel.app',
 
   bio: "I'm a passionate Full Stack Developer who crafts exceptional digital experiences. I specialize in building scalable, performant web applications with clean architecture and intuitive design.",

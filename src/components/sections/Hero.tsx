@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Github, Linkedin, Mail, MapPin, Circle } from 'lucide-react';
 import { useTypewriter } from '@/hooks/useTypewriter';
 import { personalInfo, stats, techStack } from '@/data/portfolio';
-
+import {Twitter} from 'lucide-react';
 function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -206,6 +206,15 @@ export default function Hero() {
             >
               <Mail className="w-4 h-4" />
               Email
+            </a>
+            <a
+              href="https://x.com/narendarda42874"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/[0.08] text-slate-400 hover:text-white hover:border-indigo-500/40 transition-all duration-200 text-sm font-medium"
+            >
+              <Twitter className="w-4 h-4" />
+            Twitter
             </a>
           </motion.div>
 
