@@ -189,7 +189,8 @@ export default function Hero() {
               className="flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/[0.08] text-slate-400 hover:text-white hover:border-indigo-500/40 transition-all duration-200 text-sm font-medium"
             >
               <Github className="w-4 h-4" />
-              GitHub
+              
+              <span className="hidden sm:inline">GitHub</span>
             </a>
             <a
               href={personalInfo.linkedin}
@@ -198,23 +199,23 @@ export default function Hero() {
               className="flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/[0.08] text-slate-400 hover:text-white hover:border-indigo-500/40 transition-all duration-200 text-sm font-medium"
             >
               <Linkedin className="w-4 h-4" />
-              LinkedIn
+              <span className="hidden sm:inline">LinkedIn</span>
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
               className="flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/[0.08] text-slate-400 hover:text-white hover:border-indigo-500/40 transition-all duration-200 text-sm font-medium"
             >
               <Mail className="w-4 h-4" />
-              Email
+              <span className="hidden sm:inline">Email</span>
             </a>
             <a
-              href="https://x.com/narendarda42874"
+              href={personalInfo.twitter}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/[0.08] text-slate-400 hover:text-white hover:border-indigo-500/40 transition-all duration-200 text-sm font-medium"
             >
               <Twitter className="w-4 h-4" />
-            Twitter
+              <span className="hidden sm:inline">Twitter</span>
             </a>
           </motion.div>
 
